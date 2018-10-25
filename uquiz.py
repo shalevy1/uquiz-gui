@@ -1,4 +1,7 @@
 import eel
+import setup
+
+setup.compile_files()
 
 _eel_options = {
     'port': 1234
