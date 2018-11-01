@@ -1,3 +1,85 @@
-h1 {
-  color: #f00;
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto Mono", monospace;
+}
+#mainContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #222;
+}
+#headContainer {
+  height: 10vh;
+  width: 100vw;
+  min-height: 50px;
+  background-color: #111;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  z-index: 999;
+  box-shadow: 0px 0px 10px #000;
+}
+.appTitle {
+  height: 100%;
+  width: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  color: #aaa;
+  background: #000;
+}
+.windowTitle {
+  height: 100%;
+  min-width: 200px;
+  width: 20vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.controls {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.control {
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #212121;
+  height: 100%;
+  transition: 0.2s all linear;
+}
+.control:hover {
+  filter: brightness(150%);
+  cursor: pointer;
+}
+.control:active {
+  filter: brightness(180%);
+}
+#bodyContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+#sideContainer {
+  background-color: #aaa;
+  height: 100%;
+  width: 40vw;
+  min-width: 200px;
+}
+#contentContainer {
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+}
+.caption {
+  display: inline;
+  margin: auto 10px;
 }

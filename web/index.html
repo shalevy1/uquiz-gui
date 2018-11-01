@@ -1,8 +1,35 @@
 
 <head>
   <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/roboto-mono.css"/>
 </head>
 <body>
-  <h1>test of the pug compiler</h1>
-  <p>part of the uquiz gui project</p>
+  <input type="file" style="display: none;" id="inputfile"/>
+  <div id="mainContainer">
+    <div id="headContainer">
+      <div class="appTitle">uquiz
+      </div>
+      <div class="windowTitle">Quiz Designer
+      </div>
+      <div class="controls">
+        <div class="control"><img src="/icon/file-document-outline.svg" alt="New"/>
+          <div class="caption">New</div>
+        </div>
+        <div class="control"><img src="/icon/content-save.svg" alt="Save"/>
+          <div class="caption">Save</div>
+        </div>
+        <div class="control control-open"><img src="/icon/folder-outline.svg" alt="Open"/>
+          <div class="caption">Open</div>
+        </div>
+        <div class="control control-upload"><img src="/icon/upload.svg" alt="Upload"/>
+          <div class="caption">Upload</div>
+        </div>
+      </div>
+    </div>
+    <div id="bodyContainer">
+      <div id="sideContainer"></div>
+      <div id="contentContainer"></div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
 </body>
