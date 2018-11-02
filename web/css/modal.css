@@ -1,0 +1,46 @@
+.modalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.modal {
+  color: #fff;
+  background-color: #0a0a0a;
+  padding: 20px;
+  box-shadow: 0px 0px 5px #000;
+  border-radius: 5px;
+}
+.modal * {
+  margin: 5px 0;
+}
+.modalBtn {
+  background: #f44336;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  color: #fff;
+  transition: 0.2s all linear;
+}
+.modalBtn:hover {
+  filter: brightness(120%);
+}
+.modalBtn:active {
+  filter: brightness(150%);
+}
+.modalIcon {
+  align-self: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.modalIcon img {
+  width: 60px;
+  align-self: center;
+}

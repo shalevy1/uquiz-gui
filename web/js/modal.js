@@ -1,13 +1,33 @@
 
+function removeModalFromBtn(e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  e.target.removeEventListener("click", removeModalFromBtn);
+  e.target.parentNode.parentNode.outerHTML = "";
+}
+
 class Modal {
   constructor() {}
 
   error(msg) {
-    var modal = document.createElement("div");
-    modal.className += " errorModal modal";
+    let template = `<div class="modalBackground">
+                    <div class="modal errorModal">
+                         <div class="modalIcon">
+                             <img src="/icon/alert-circle-outline.svg" alt="error"/>
+                         </div>
+                         <div class="modalContent">${msg}</div>
 
-    var newContent = document.createTextNode("Hi there and greetings!"); 
-    newDiv.appendChild(newContent);  
+                         <button class="modalBtn">OK</button>
+                    </div>
+                    </div>`;
+
+    document.body.insertAdjacentHTML("beforeend", template);
+
+    let button = document.querySelector(".modalBtn");
+
+    button.addEventListener("click", removeModalFromBtn);
+
   }
 }
 
