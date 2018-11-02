@@ -1,0 +1,56 @@
+{
+  "name": "Test Quiz",
+  "author": "argarak",
+  "date": "02/11/18",
+  "questions": [
+    {
+      "text": "Which one of these is the biggest object?",
+      "choices": [
+        {
+          "text": "Orange",
+          "correct": false
+        },
+
+        {
+          "text": "Windmill",
+          "correct": false
+        },
+
+        {
+          "text": "Space Station",
+          "correct": true
+        },
+
+        {
+          "text": "Helicopter",
+          "correct": false
+        }
+      ]
+    },
+
+    {
+      "text": "Which one of these is the smallest object?",
+      "choices": [
+        {
+          "text": "Orange",
+          "correct": true
+        },
+
+        {
+          "text": "Windmill",
+          "correct": false
+        },
+
+        {
+          "text": "Space Station",
+          "correct": false
+        },
+
+        {
+          "text": "Helicopter",
+          "correct": false
+        }
+      ]
+    }
+  ]
+}
