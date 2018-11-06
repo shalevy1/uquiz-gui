@@ -1,4 +1,3 @@
-
 function removeModalFromBtn(e) {
   e.stopPropagation();
   e.preventDefault();
@@ -27,7 +26,6 @@ class Modal {
     let button = document.querySelector(".modalBtn");
 
     button.addEventListener("click", removeModalFromBtn);
-
   }
 }
 

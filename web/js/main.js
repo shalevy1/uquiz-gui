@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
 
@@ -13,14 +12,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var fileupload = document.getElementById("inputfile");
 
-  fileupload.addEventListener('input', function(e) {
-    console.log(this.files);
-
-    if (this.files[0].size > 3E6) {
+  fileupload.addEventListener("input", function(e) {
+    if (this.files[0].size > 3e6) {
       modal.error("Files must be under 3MB");
-    } else if (this.files[0].type !== "application/json" &&
-               this.files[0].type !== "text/plain") {
+      return;
+    } else if (
+      this.files[0].type !== "application/json" &&
+      this.files[0].type !== "text/plain"
+    ) {
       modal.error("Not a valid JSON or text file");
+      return;
     }
 
     var reader = new FileReader();
@@ -30,16 +31,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       window.quizObject = JSON.parse(text);
       console.log(window.quizObject);
+
+      create.fromJSON(window.quizObject);
     };
 
     reader.readAsText(this.files[0]);
   });
 
-  var openbtn   = document.querySelector(".control-open");
-  var savebtn   = document.querySelector(".control-save");
-  var newbtn    = document.querySelector(".control-new");
+  var openbtn = document.querySelector(".control-open");
+  var savebtn = document.querySelector(".control-save");
+  var newbtn = document.querySelector(".control-new");
   var uploadbtn = document.querySelector(".control-upload");
- 
+
   openbtn.addEventListener("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -48,11 +51,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   savebtn.addEventListener("click", function(e) {
-    var a = window.document.createElement('a');
+    var a = window.document.createElement("a");
 
     a.href = window.URL.createObjectURL(
-      new Blob([JSON.stringify(window.quizObject)],
-               {type: "application/json"})
+      new Blob([JSON.stringify(window.quizObject)], {type: "application/json"})
     );
 
     a.download = window.quizObject.name + ".json";
@@ -72,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   uploadbtn.addEventListener("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
-    
+
     alert("upload!");
   });
 });
