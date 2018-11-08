@@ -11,10 +11,10 @@ class Create {
       el.parentNode.classList === undefined ||
       !el.parentNode.classList.contains(className)
     ) {
-      this.findParentFromClass(el.parentNode, className);
+      return this.findParentFromClass(el.parentNode, className);
+    } else {
+      return el.parentNode;
     }
-
-    return el.parentNode;
   }
 
   /* Clears the side container of all elements */
@@ -36,30 +36,59 @@ class Create {
     let editTemplate = `
     <div class="editElement editQuestionText">
         <label for="uname">Question Text</label>
-        <input type="text" id="uname" name="uname" required="" minlength="4" maxlength="8" placeholder="4 to 8 characters long">
+        <input type="text" id="qtext" name="qtext" required="" minlength="1" maxlength="56" placeholder="1 to 56 characters long">
         <span class="validity"></span>
     </div>
     `;
 
     content.insertAdjacentHTML("beforeend", editTemplate);
 
+    let questionText = document.getElementById("qtext");
+    questionText.value = qu.text;
+
     for (let i = 1; i < 5; i++) {
       let choiceTemplate = `
       <div class="editElement editChoice1" style="">
           <label for="uname">Choice ${i}</label>
-          <input type="text" id="uname" name="uname" required="" minlength="4" maxlength="8" placeholder="4 to 8 characters long">
+          <input type="text" id="choice${i}" name="choice${i}" required="" minlength="1" maxlength="28" placeholder="1 to 28 characters long">
           <span class="validity"></span>
         
           <div class="choiceExtendedOptions">
               <div class="checkboxContainer">
                   <label for="correct1">Correct</label>
-              	<input type="checkbox" name="correct${1}" value="Correct">
+              	  <input type="checkbox" name="correct${i}" id="correct${i}" value="Correct">
               </div>
           </div>
       </div>   
       `;
 
       content.insertAdjacentHTML("beforeend", choiceTemplate);
+
+      let choice = document.getElementById("choice" + i);
+
+      if (choice === null) {
+        modal.error(
+          "Could not find ID element choice" +
+            i +
+            ". Please restart the program and try again."
+        );
+        return;
+      }
+
+      choice.value = qu.choices[i - 1].text;
+
+      let correct = document.getElementById("correct" + i);
+
+      if (correct === null) {
+        modal.error(
+          "Could not find ID element correct" +
+            i +
+            ". Please restart the program and try again."
+        );
+        return;
+      }
+
+      correct.checked = qu.choices[i - 1].correct;
     }
   }
 
@@ -106,6 +135,8 @@ class Create {
       return;
     }
 
+    var self = this;
+
     titleSection.addEventListener("click", function(e) {
       if (e.target.classList.contains("quizSection")) {
         document
@@ -114,6 +145,20 @@ class Create {
 
         e.target.className += " currentSection";
       } else {
+        let quizSection = self.findParentFromClass(e.target, "quizSection");
+
+        if (quizSection === null) {
+          modal.error(
+            "Failed to update edit section. Please restart the program and try again."
+          );
+          return;
+        }
+
+        document
+          .querySelector(".currentSection")
+          .classList.remove("currentSection");
+
+        quizSection.className += " currentSection";
       }
     });
 
@@ -145,10 +190,21 @@ class Create {
         return;
       }
 
-      var self = this;
-
       questionElement.addEventListener("click", function(e) {
-        let questionIndex = parseInt(e.target.id[e.target.id.length - 1]);
+        let quizSection = e.target;
+
+        if (!e.target.classList.contains("quizSection")) {
+          quizSection = self.findParentFromClass(e.target, "quizSection");
+
+          if (quizSection === null) {
+            modal.error(
+              "Failed to update edit section. Please restart the program and try again."
+            );
+            return;
+          }
+        }
+
+        let questionIndex = parseInt(quizSection.id[quizSection.id.length - 1]);
 
         var currentSection = document.querySelector(".currentSection");
 
@@ -162,7 +218,7 @@ class Create {
 
         currentSection.classList.remove("currentSection");
 
-        e.target.className += " currentSection";
+        quizSection.className += " currentSection";
 
         self.editQuestion(
           window.quizObject.questions[questionIndex],
