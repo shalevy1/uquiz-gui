@@ -54,6 +54,15 @@ class Create {
 
     quizName.addEventListener("input", function(e) {
       window.quizObject.name = e.target.value;
+
+      let quizTitle = document.querySelector(".quizTitle");
+
+      if (quizTitle === null) {
+        console.error("Cannot locate quizTitle when updating quiz name!");
+        return;
+      }
+
+      quizTitle.innerHTML = e.target.value;
     });
 
     let author = document.getElementById("author");
@@ -182,6 +191,8 @@ class Create {
   }
 
   fromJSON(json) {
+    this.clearSide();
+
     let title = "";
 
     if (!json.name) {
