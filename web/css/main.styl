@@ -1,4 +1,8 @@
 
+/* Constants */
+
+checkboxBackground = #BBDEFB
+
 body 
   padding 0
   margin 0
@@ -132,7 +136,7 @@ body
   visibility visible
   margin-left 40px
 
-.indicatorContainer 
+.indicatorContainer
   width 52px
 
 .titleSection:hover .quizIndicator 
@@ -169,10 +173,10 @@ input[type="checkbox"]
   -webkit-appearance none
   vertical-align middle
 
-  background-color #eee
+  background-color checkboxBackground
 
   border-radius 10px
-  border-color #eee
+  border-color checkboxBackground
 
   width 20px
   height 20px
@@ -181,7 +185,7 @@ input[type="checkbox"]
 
 [type=checkbox]:checked 
   background-color #4CAF50
-  border #eee solid 5px
+  border checkboxBackground solid 5px
 
 .checkboxContainer 
   margin-top 5px

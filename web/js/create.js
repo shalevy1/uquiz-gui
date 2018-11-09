@@ -46,6 +46,14 @@ class Create {
     let questionText = document.getElementById("qtext");
     questionText.value = qu.text;
 
+    questionText.addEventListener("input", function(e) {
+      let questionId = parseInt(
+        document.querySelector(".currentSection").id[2]
+      );
+
+      window.quizObject.questions[questionId].text = e.target.value;
+    });
+
     for (let i = 1; i < 5; i++) {
       let choiceTemplate = `
       <div class="editElement editChoice1" style="">
@@ -89,6 +97,52 @@ class Create {
       }
 
       correct.checked = qu.choices[i - 1].correct;
+
+      correct.addEventListener("change", function(e) {
+        if (e.target.id.indexOf("correct") === -1) {
+          modal.error(
+            "Could not update from correct element. Please restart the program and try again"
+          );
+          return;
+        }
+
+        let choiceId = parseInt(e.target.id[7]) - 1;
+
+        if (choiceId === NaN) {
+          console.error("Choice ID is NaN!");
+          return;
+        }
+
+        let questionId = parseInt(
+          document.querySelector(".currentSection").id[2]
+        );
+
+        window.quizObject.questions[questionId].choices[choiceId].correct =
+          e.target.checked;
+      });
+
+      choice.addEventListener("input", function(e) {
+        if (e.target.id.indexOf("choice") === -1) {
+          modal.error(
+            "Could not update from choice element. Please restart the program and try again"
+          );
+          return;
+        }
+
+        let choiceId = parseInt(e.target.id[6]) - 1;
+
+        if (choiceId === NaN) {
+          console.error("Choice ID is NaN!");
+          return;
+        }
+
+        let questionId = parseInt(
+          document.querySelector(".currentSection").id[2]
+        );
+
+        window.quizObject.questions[questionId].choices[choiceId].text =
+          e.target.value;
+      });
     }
   }
 
@@ -110,6 +164,7 @@ class Create {
                          <div class="quizTitle">
                          ${title}
                          </div>
+
 
                          </div>`;
 

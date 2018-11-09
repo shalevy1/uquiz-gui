@@ -1,3 +1,4 @@
+/* Constants */
 body {
   padding: 0;
   margin: 0;
@@ -150,15 +151,16 @@ input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   vertical-align: middle;
-  background-color: #eee;
+  background-color: #bbdefb;
   border-radius: 10px;
+  border-color: #bbdefb;
   width: 20px;
   height: 20px;
   transition: all 0.5s ease-in-out;
 }
 [type=checkbox]:checked {
   background-color: #4caf50;
-  border: #eee solid 5px;
+  border: #bbdefb solid 5px;
 }
 .checkboxContainer {
   margin-top: 5px;
