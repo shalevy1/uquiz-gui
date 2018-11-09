@@ -52,8 +52,16 @@ class Create {
     let quizName = document.getElementById("qname");
     quizName.value = window.quizObject.name;
 
+    quizName.addEventListener("input", function(e) {
+      window.quizObject.name = e.target.value;
+    });
+
     let author = document.getElementById("author");
     author.value = window.quizObject.author;
+
+    author.addEventListener("input", function(e) {
+      window.quizObject.author = e.target.value;
+    });
   }
 
   editQuestion(qu, index) {
