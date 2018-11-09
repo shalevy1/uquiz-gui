@@ -29,6 +29,33 @@ class Create {
     sideContainer.innerHTML = "";
   }
 
+  editQuiz() {
+    let content = document.getElementById("contentContainer");
+    content.innerHTML = "";
+
+    let editTemplate = `
+    <div class="editElement editQuestionText">
+        <label for="uname">Quiz Name</label>
+        <input type="text" id="qname" name="qname" required="" minlength="1" maxlength="28" placeholder="1 to 28 characters long">
+        <span class="validity"></span>
+    </div>
+
+    <div class="editElement editQuestionText">
+        <label for="uname">Author</label>
+        <input type="text" id="author" name="author" required="" minlength="1" maxlength="28" placeholder="1 to 28 characters long">
+        <span class="validity"></span>
+    </div>
+    `;
+
+    content.insertAdjacentHTML("beforeend", editTemplate);
+
+    let quizName = document.getElementById("qname");
+    quizName.value = window.quizObject.name;
+
+    let author = document.getElementById("author");
+    author.value = window.quizObject.author;
+  }
+
   editQuestion(qu, index) {
     let content = document.getElementById("contentContainer");
     content.innerHTML = "";
@@ -193,6 +220,8 @@ class Create {
     var self = this;
 
     titleSection.addEventListener("click", function(e) {
+      self.editQuiz();
+
       if (e.target.classList.contains("quizSection")) {
         document
           .querySelector(".currentSection")
@@ -280,6 +309,8 @@ class Create {
           questionIndex
         );
       });
+
+      self.editQuiz();
     }
   }
 }
