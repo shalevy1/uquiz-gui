@@ -175,12 +175,18 @@ input[type="checkbox"]:focus {
   display: flex;
   flex-direction: column;
 }
-#addQuestion {
+#controlContainer {
   display: flex;
   background: #000;
   color: #fff;
   justify-content: space-evenly;
   height: 48px;
-  align-items: center;
+  align-items: stretch;
   margin-top: auto;
+}
+.questionControl {
+  padding: 10px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
 }

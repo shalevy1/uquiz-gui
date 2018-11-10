@@ -32,9 +32,15 @@ body
     #bodyContainer
       #questionsContainer
         #sideContainer
-        #addQuestion(tabindex="0")
-          | Add Question
-          img(src="/icon/plus.svg" alt="Plus")
+        #controlContainer
+          #addQuestion.questionControl(tabindex="0")
+            img(src="/icon/plus.svg" alt="Plus")
+          #removeQuestion.questionControl(tabindex="0")
+            img(src="/icon/delete.svg" alt="Remove")
+          #upQuestion.questionControl(tabindex="0")
+            img(src="/icon/chevron-up.svg" alt="Shift up")
+          #downQuestion.questionControl(tabindex="0")
+            img(src="/icon/chevron-down.svg" alt="Shift down")
           
       #contentContainer
 
