@@ -36,7 +36,7 @@ class Create {
     let questionNo = 0;
 
     for (let el of questionElements) {
-      let elementId = parseInt(el.id[2]);
+      let elementId = parseInt(el.id.match(/\d+/)[0]);
 
       if (elementId === NaN) {
         continue;
@@ -101,7 +101,7 @@ class Create {
         }
       }
 
-      let questionIndex = parseInt(quizSection.id[quizSection.id.length - 1]);
+      let questionIndex = parseInt(quizSection.id.match(/\d+/)[0]);
 
       var currentSection = document.querySelector(".currentSection");
 
@@ -187,7 +187,7 @@ class Create {
 
     questionText.addEventListener("input", function(e) {
       let questionId = parseInt(
-        document.querySelector(".currentSection").id[2]
+        document.querySelector(".currentSection").id.match(/\d+/)[0]
       );
 
       window.quizObject.questions[questionId].text = e.target.value;
@@ -245,7 +245,7 @@ class Create {
           return;
         }
 
-        let choiceId = parseInt(e.target.id[7]) - 1;
+        let choiceId = parseInt(e.target.id.match(/\d+/)[0]) - 1;
 
         if (choiceId === NaN) {
           console.error("Choice ID is NaN!");
@@ -268,7 +268,7 @@ class Create {
           return;
         }
 
-        let choiceId = parseInt(e.target.id[6]) - 1;
+        let choiceId = parseInt(e.target.id.match(/\d+/)[0]) - 1;
 
         if (choiceId === NaN) {
           console.error("Choice ID is NaN!");
@@ -276,7 +276,7 @@ class Create {
         }
 
         let questionId = parseInt(
-          document.querySelector(".currentSection").id[2]
+          document.querySelector(".currentSection").id.match(/\d+/)[0]
         );
 
         window.quizObject.questions[questionId].choices[choiceId].text =
@@ -402,7 +402,7 @@ class Create {
           }
         }
 
-        let questionIndex = parseInt(quizSection.id[quizSection.id.length - 1]);
+        let questionIndex = parseInt(quizSection.id.match(/\d+/)[0]);
 
         var currentSection = document.querySelector(".currentSection");
 
