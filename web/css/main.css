@@ -177,8 +177,8 @@ input[type="checkbox"]:focus {
 }
 #addQuestion {
   display: flex;
-  background: #fff;
-  filter: invert(1);
+  background: #000;
+  color: #fff;
   justify-content: space-evenly;
   height: 48px;
   align-items: center;

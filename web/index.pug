@@ -13,26 +13,26 @@ body
       .windowTitle
         | Quiz Designer
       .controls
-        .control.control-new
+        .control.control-new(tabindex="0" role="button" aria-pressed="false" onkeypress="enterClickHandler(this)")
           img(src="/icon/file-document-outline.svg" alt="New")
           .caption New
 
-        .control.control-save
+        .control.control-save(tabindex="0" role="button" aria-pressed="false" onkeypress="enterClickHandler(this)")
           img(src="/icon/content-save.svg" alt="Save")
           .caption Save
 
-        .control.control-open
+        .control.control-open(tabindex="0" role="button" aria-pressed="false" onkeypress="enterClickHandler(this)")
           img(src="/icon/folder-outline.svg" alt="Open")
           .caption Open
 
-        .control.control-upload
+        .control.control-upload(tabindex="0" role="button" aria-pressed="false" onkeypress="enterClickHandler(this)")
           img(src="/icon/upload.svg" alt="Upload")
           .caption Upload
 
     #bodyContainer
       #questionsContainer
         #sideContainer
-        #addQuestion
+        #addQuestion(tabindex="0")
           | Add Question
           img(src="/icon/plus.svg" alt="Plus")
           

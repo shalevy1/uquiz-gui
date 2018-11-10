@@ -1,3 +1,7 @@
+function enterClickHandler(el) {
+  console.log(el);
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
 
@@ -76,5 +80,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     e.preventDefault();
 
     alert("upload!");
+  });
+
+  let addQuestion = document.getElementById("addQuestion");
+
+  addQuestion.addEventListener("click", function(e) {
+    create.newQuestion();
   });
 });

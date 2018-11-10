@@ -29,6 +29,101 @@ class Create {
     sideContainer.innerHTML = "";
   }
 
+  newQuestion() {
+    var self = this;
+
+    let questionElements = document.querySelectorAll(".questionSection");
+    let questionNo = 0;
+
+    for (let el of questionElements) {
+      let elementId = parseInt(el.id[2]);
+
+      if (elementId === NaN) {
+        continue;
+      }
+
+      if (elementId > questionNo) {
+        questionNo = elementId;
+      }
+    }
+
+    questionNo += 2;
+
+    let blankQuestion = {
+      text: "",
+      choices: [
+        {text: "", correct: false},
+        {text: "", correct: false},
+        {text: "", correct: false},
+        {text: "", correct: false}
+      ]
+    };
+
+    window.quizObject.questions.push(blankQuestion);
+
+    let id = "qu" + (questionNo - 1);
+
+    let questionTemplate = `<div class="quizSection questionSection" id="${id}">
+
+                            <div class="indicatorContainer">
+                            <img class="quizIndicator" src="/icon/chevron-right.svg" alt="selector"/>
+                            </div>
+
+                            <div class="questionName">
+                            Question ${questionNo}
+                            </div>
+
+                            </div>`;
+
+    sideContainer.insertAdjacentHTML("beforeend", questionTemplate);
+
+    let questionElement = document.getElementById(id);
+
+    if (questionElement === null) {
+      modal.error(
+        "Could not find current questionElement ID. Please restart the program and try again."
+      );
+      this.clearSide();
+      return;
+    }
+
+    questionElement.addEventListener("click", function(e) {
+      let quizSection = e.target;
+
+      if (!e.target.classList.contains("quizSection")) {
+        quizSection = self.findParentFromClass(e.target, "quizSection");
+
+        if (quizSection === null) {
+          modal.error(
+            "Failed to update edit section. Please restart the program and try again."
+          );
+          return;
+        }
+      }
+
+      let questionIndex = parseInt(quizSection.id[quizSection.id.length - 1]);
+
+      var currentSection = document.querySelector(".currentSection");
+
+      if (currentSection === null) {
+        modal.error(
+          "Could not find class element currentSection. Please restart the program and try again."
+        );
+        this.clearSide();
+        return;
+      }
+
+      currentSection.classList.remove("currentSection");
+
+      quizSection.className += " currentSection";
+
+      self.editQuestion(
+        window.quizObject.questions[questionIndex],
+        questionIndex
+      );
+    });
+  }
+
   editQuiz() {
     let content = document.getElementById("contentContainer");
     content.innerHTML = "";
