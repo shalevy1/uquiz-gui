@@ -29,6 +29,12 @@ class Create {
     sideContainer.innerHTML = "";
   }
 
+  removeQuestion() {
+    let questionId = parseInt(
+      document.querySelector(".currentSection").id.match(/\d+/)[0]
+    );
+  }
+
   newQuestion() {
     var self = this;
 
@@ -169,6 +175,8 @@ class Create {
   }
 
   editQuestion(qu, index) {
+    var self = this;
+
     let content = document.getElementById("contentContainer");
     content.innerHTML = "";
 
@@ -189,6 +197,21 @@ class Create {
       let questionId = parseInt(
         document.querySelector(".currentSection").id.match(/\d+/)[0]
       );
+
+      let currentQuestionName = document.querySelector(
+        ".currentSection .questionName"
+      );
+
+      if (currentQuestionName === null) {
+        console.error("Failed to update current section text!");
+        return;
+      }
+
+      if (e.target.value) {
+        currentQuestionName.innerHTML = self.truncate(e.target.value);
+      } else {
+        currentQuestionName.innerHTML = "New Question";
+      }
 
       window.quizObject.questions[questionId].text = e.target.value;
     });
@@ -285,6 +308,13 @@ class Create {
     }
   }
 
+  truncate(text) {
+    if (text.length <= 46) {
+      return text;
+    }
+    return text.substring(0, 45) + "…";
+  }
+
   fromJSON(json) {
     this.clearSide();
 
@@ -371,7 +401,9 @@ class Create {
                               </div>
 
                               <div class="questionName">
-                              Question ${questionNo}
+                              ${self.truncate(
+                                window.quizObject.questions[question].text
+                              )}
                               </div>
 
                               </div>`;

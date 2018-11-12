@@ -87,4 +87,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   addQuestion.addEventListener("click", function(e) {
     create.newQuestion();
   });
+
+  let removeQuestion = document.getElementById("removeQuestion");
+
+  removeQuestion.addEventListener("click", function(e) {
+    create.removeQuestion();
+  });
 });
