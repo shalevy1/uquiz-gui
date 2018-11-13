@@ -29,7 +29,40 @@ class Create {
     sideContainer.innerHTML = "";
   }
 
-  undo() {}
+  undo() {
+    let questionId = window.undoStack.pop();
+
+    if (questionId === undefined) {
+      let undoQuestion = document.getElementById("undoQuestion");
+      undoQuestion.style.display = "none";
+      return;
+    }
+
+    delete window.quizObject.questions[questionId].marked;
+
+    let questionSection = document.getElementById("qu" + questionId);
+
+    console.log(questionSection);
+
+    if (!questionSection) {
+      console.error("Could not find element " + questionId + " to undo!");
+      return;
+    }
+
+    questionSection.style.display = "flex";
+
+    let currentSection = document.querySelector(".currentSection");
+    currentSection.classList.remove("currentSection");
+
+    questionSection.classList += " currentSection";
+
+    this.editQuestion(window.quizObject.questions[questionId], questionId);
+
+    if (window.undoStack.length === 0) {
+      let undoQuestion = document.getElementById("undoQuestion");
+      undoQuestion.style.display = "none";
+    }
+  }
 
   removeQuestionCallback(self, questionId) {
     let currentSection = document.querySelector(".currentSection");

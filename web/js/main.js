@@ -95,4 +95,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   removeQuestion.addEventListener("click", function(e) {
     create.removeQuestion();
   });
+
+  let undoQuestion = document.getElementById("undoQuestion");
+
+  undoQuestion.addEventListener("click", function(e) {
+    create.undo();
+  });
 });
