@@ -27,6 +27,36 @@ class Modal {
 
     button.addEventListener("click", removeModalFromBtn);
   }
+
+  confirmDelete(msg, question, callback, callbackReference) {
+    let template = `<div class="modalBackground">
+                    <div class="modal errorModal">
+                         <div class="modalIcon">
+                             <img src="/icon/alert.svg" alt="error"/>
+                         </div>
+
+                         <div class="modalContent">
+                             <p>${msg}</p>
+                             <p>${question}</p>
+                         </div>
+
+                         <button class="modalBtn modalBtnYes">Delete</button>
+                         <button class="modalBtn modalBtnNo">Cancel</button>
+                    </div>
+                    </div>`;
+
+    document.body.insertAdjacentHTML("beforeend", template);
+
+    let buttonNo = document.querySelector(".modalBtnNo");
+    buttonNo.addEventListener("click", removeModalFromBtn);
+
+    let buttonYes = document.querySelector(".modalBtnYes");
+
+    buttonYes.addEventListener("click", function(e) {
+      callback(callbackReference);
+      removeModalFromBtn(e);
+    });
+  }
 }
 
 var modal = new Modal();

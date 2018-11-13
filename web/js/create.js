@@ -29,9 +29,36 @@ class Create {
     sideContainer.innerHTML = "";
   }
 
+  removeQuestionCallback(self) {
+    let currentSection = document.querySelector(".currentSection");
+
+    if (currentSection.classList.contains("titleSection")) {
+      return;
+    }
+
+    currentSection.style.display = "none";
+    currentSection.classList.remove("currentSection");
+
+    let titleSection = document.querySelector(".titleSection");
+    titleSection.className += " currentSection";
+
+    self.editQuiz();
+  }
+
   removeQuestion() {
-    let questionId = parseInt(
-      document.querySelector(".currentSection").id.match(/\d+/)[0]
+    let currentSection = document.querySelector(".currentSection");
+
+    if (currentSection.classList.contains("titleSection")) {
+      return;
+    }
+
+    let questionId = parseInt(currentSection.id.match(/\d+/)[0]);
+
+    modal.confirmDelete(
+      "Are you sure you want to delete question:",
+      window.quizObject.questions[0].text,
+      this.removeQuestionCallback,
+      this
     );
   }
 
