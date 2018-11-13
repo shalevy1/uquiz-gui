@@ -29,7 +29,9 @@ class Create {
     sideContainer.innerHTML = "";
   }
 
-  removeQuestionCallback(self) {
+  undo() {}
+
+  removeQuestionCallback(self, questionId) {
     let currentSection = document.querySelector(".currentSection");
 
     if (currentSection.classList.contains("titleSection")) {
@@ -42,7 +44,14 @@ class Create {
     let titleSection = document.querySelector(".titleSection");
     titleSection.className += " currentSection";
 
+    window.quizObject.questions[questionId].marked = true;
+    window.undoStack.push(questionId);
+
     self.editQuiz();
+
+    let undoQuestion = document.getElementById("undoQuestion");
+
+    undoQuestion.style.display = "flex";
   }
 
   removeQuestion() {
@@ -56,7 +65,7 @@ class Create {
 
     modal.confirmDelete(
       "Are you sure you want to delete question:",
-      window.quizObject.questions[0].text,
+      questionId,
       this.removeQuestionCallback,
       this
     );

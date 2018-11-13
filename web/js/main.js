@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     questions: []
   };
 
+  window.undoStack = [];
+
   var fileupload = document.getElementById("inputfile");
 
   fileupload.addEventListener("input", function(e) {

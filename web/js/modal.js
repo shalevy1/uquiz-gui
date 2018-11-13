@@ -28,7 +28,13 @@ class Modal {
     button.addEventListener("click", removeModalFromBtn);
   }
 
-  confirmDelete(msg, question, callback, callbackReference) {
+  confirmDelete(msg, questionId, callback, callbackReference) {
+    let question = window.quizObject.questions[questionId].text;
+
+    if (!question) {
+      question = "New Question";
+    }
+
     let template = `<div class="modalBackground">
                     <div class="modal errorModal">
                          <div class="modalIcon">
@@ -53,7 +59,7 @@ class Modal {
     let buttonYes = document.querySelector(".modalBtnYes");
 
     buttonYes.addEventListener("click", function(e) {
-      callback(callbackReference);
+      callback(callbackReference, questionId);
       removeModalFromBtn(e);
     });
   }

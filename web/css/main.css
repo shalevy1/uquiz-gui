@@ -190,3 +190,6 @@ input[type="checkbox"]:focus {
   flex-grow: 1;
   justify-content: center;
 }
+#undoQuestion {
+  display: none;
+}
