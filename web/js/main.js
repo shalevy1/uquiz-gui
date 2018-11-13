@@ -59,8 +59,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
   savebtn.addEventListener("click", function(e) {
     var a = window.document.createElement("a");
 
+    let localQuizObject = JSON.parse(JSON.stringify(window.quizObject));
+    localQuizObject.questions = [];
+
+    for (let question of window.quizObject.questions) {
+      if (!question.hasOwnProperty("marked")) {
+        localQuizObject.questions.push(question);
+      }
+    }
+
     a.href = window.URL.createObjectURL(
-      new Blob([JSON.stringify(window.quizObject)], {type: "application/json"})
+      new Blob([JSON.stringify(localQuizObject)], {type: "application/json"})
     );
 
     a.download = window.quizObject.name + ".json";
