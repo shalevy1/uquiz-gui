@@ -110,4 +110,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
   undoQuestion.addEventListener("click", function(e) {
     create.undo();
   });
+
+  let upQuestion = document.getElementById("upQuestion");
+
+  upQuestion.addEventListener("click", function(e) {
+    create.shiftUp();
+  });
+
+  let downQuestion = document.getElementById("downQuestion");
+
+  downQuestion.addEventListener("click", function(e) {
+    create.shiftDown();
+  });
 });

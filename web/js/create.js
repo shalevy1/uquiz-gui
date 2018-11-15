@@ -29,6 +29,51 @@ class Create {
     sideContainer.innerHTML = "";
   }
 
+  shiftUp() {
+    let currentSection = document.querySelector(".currentSection");
+
+    if (currentSection === null) {
+      console.error("Cannot shift question, .currentSection cannot be found.");
+      return;
+    }
+
+    let sideContainer = document.getElementById("sideContainer");
+
+    let index = 0;
+
+    for (let section of sideContainer.children) {
+      if (section.id === currentSection.id) {
+        break;
+      }
+      index++;
+    }
+
+    if (currentSection.id !== sideContainer.children[index].id) {
+      console.error(
+        "Could not find currentSection element in sideContainer children!"
+      );
+      return;
+    }
+
+    if (index <= 1) {
+      return;
+    }
+
+    sideContainer.insertBefore(
+      currentSection,
+      sideContainer.children[index - 1]
+    );
+  }
+
+  shiftDown() {
+    let currentSection = document.querySelector(".currentSection");
+
+    if (currentSection === null) {
+      console.error("Cannot shift question, .currentSection cannot be found.");
+      return;
+    }
+  }
+
   undo() {
     let questionId = window.undoStack.pop();
 
@@ -145,7 +190,7 @@ class Create {
                             </div>
 
                             <div class="questionName">
-                            Question ${questionNo}
+                            New Question
                             </div>
 
                             </div>`;
