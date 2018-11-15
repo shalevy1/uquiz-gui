@@ -2,6 +2,44 @@ function enterClickHandler(el) {
   console.log(el);
 }
 
+function sortQuestions(localQuizObject) {
+  //   currindex = 0
+  let currIndex = 0;
+  //   for a in range(0, 6):
+  for (let i = 0; i < 6; i++) {}
+  //   mindex = currindex
+  //   for i in range(currindex + 1, 6):
+  //   if test[i] < test[mindex]:
+  //   mindex = i
+  //   tmp = test[mindex]
+  //   test[mindex] = test[currindex]
+  //   test[currindex] = tmp
+  //   print(test)
+  //   currindex += 1
+  //   sort(test)
+}
+
+function handleShiftedElements(localQuizObject) {
+  let sideContainer = document.getElementById("sideContainer");
+
+  if (sideContainer === null) {
+    console.error("#sideContainer is null!");
+    return;
+  }
+
+  for (let i = 1; i < sideContainer.children.length; i++) {
+    let questionId = parseInt(sideContainer.children[i].id.match(/\d+/)[0]);
+
+    if (window.quizObject.questions[questionId].marked) {
+      continue;
+    }
+
+    localQuizObject.questions[questionId].sortBy = i - 1;
+  }
+
+  console.log(localQuizObject);
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
 
@@ -67,6 +105,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         localQuizObject.questions.push(question);
       }
     }
+
+    handleShiftedElements(localQuizObject);
 
     a.href = window.URL.createObjectURL(
       new Blob([JSON.stringify(localQuizObject)], {type: "application/json"})
