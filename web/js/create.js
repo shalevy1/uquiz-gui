@@ -72,6 +72,33 @@ class Create {
       console.error("Cannot shift question, .currentSection cannot be found.");
       return;
     }
+
+    let sideContainer = document.getElementById("sideContainer");
+
+    let index = 0;
+
+    for (let section of sideContainer.children) {
+      if (section.id === currentSection.id) {
+        break;
+      }
+      index++;
+    }
+
+    if (currentSection.id !== sideContainer.children[index].id) {
+      console.error(
+        "Could not find currentSection element in sideContainer children!"
+      );
+      return;
+    }
+
+    if (index >= sideContainer.children.length - 1) {
+      return;
+    }
+
+    sideContainer.insertBefore(
+      currentSection,
+      sideContainer.children[index + 2]
+    );
   }
 
   undo() {
