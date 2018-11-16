@@ -295,6 +295,8 @@ class Create {
     quizName.value = window.quizObject.name;
 
     quizName.addEventListener("input", function(e) {
+      window.saved = false;
+
       window.quizObject.name = e.target.value;
 
       let quizTitle = document.querySelector(".quizTitle");
@@ -311,6 +313,7 @@ class Create {
     author.value = window.quizObject.author;
 
     author.addEventListener("input", function(e) {
+      window.saved = false;
       window.quizObject.author = e.target.value;
     });
   }
@@ -335,6 +338,8 @@ class Create {
     questionText.value = qu.text;
 
     questionText.addEventListener("input", function(e) {
+      window.saved = false;
+
       let questionId = parseInt(
         document.querySelector(".currentSection").id.match(/\d+/)[0]
       );
@@ -402,6 +407,8 @@ class Create {
       correct.checked = qu.choices[i - 1].correct;
 
       correct.addEventListener("change", function(e) {
+        window.saved = false;
+
         if (e.target.id.indexOf("correct") === -1) {
           modal.error(
             "Could not update from correct element. Please restart the program and try again"
@@ -425,6 +432,8 @@ class Create {
       });
 
       choice.addEventListener("input", function(e) {
+        window.saved = false;
+
         if (e.target.id.indexOf("choice") === -1) {
           modal.error(
             "Could not update from choice element. Please restart the program and try again"

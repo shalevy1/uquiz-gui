@@ -69,7 +69,7 @@ function downloadQuiz(localQuizObject) {
   a.click();
   document.body.removeChild(a);
 
-  console.log(localQuizObject);
+  window.saved = true;
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -78,11 +78,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
   window.quizFile = "";
 
   window.quizObject = {
-    name: "",
+    name: "New Quiz",
     author: "",
     date: "",
-    questions: []
+    questions: [
+      {
+        text: "New Question",
+        choices: [
+          {text: "", correct: false},
+          {text: "", correct: false},
+          {text: "", correct: false},
+          {text: "", correct: false}
+        ]
+      }
+    ]
   };
+
+  window.saved = false;
+
+  create.fromJSON(window.quizObject);
 
   window.undoStack = [];
 
@@ -143,7 +157,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     e.stopPropagation();
     e.preventDefault();
 
-    alert("new!");
+    if (!window.saved) {
+      // display modal
+    }
   });
 
   uploadbtn.addEventListener("click", function(e) {
