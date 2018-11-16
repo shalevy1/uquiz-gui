@@ -63,6 +63,44 @@ class Modal {
       removeModalFromBtn(e);
     });
   }
+
+  confirmNew(msg, quizName, newCallback, saveCallback) {
+    let template = `<div class="modalBackground">
+                    <div class="modal errorModal">
+                         <div class="modalIcon">
+                             <img src="/icon/alert.svg" alt="error"/>
+                         </div>
+
+                         <div class="modalContent">
+                             <p>${msg}</p>
+                             <p>${quizName}</p>
+                         </div>
+
+                         <button class="modalBtn modalBtnNew">Create New</button>
+                         <button class="modalBtn modalBtnSave">Save & Create New</button>
+                         <button class="modalBtn modalBtnCancel">Cancel</button>
+                    </div>
+                    </div>`;
+
+    document.body.insertAdjacentHTML("beforeend", template);
+
+    let buttonCancel = document.querySelector(".modalBtnCancel");
+    buttonCancel.addEventListener("click", removeModalFromBtn);
+
+    let buttonNew = document.querySelector(".modalBtnNew");
+
+    buttonNew.addEventListener("click", function(e) {
+      newCallback();
+      removeModalFromBtn(e);
+    });
+
+    let buttonSave = document.querySelector(".modalBtnSave");
+
+    buttonSave.addEventListener("click", function(e) {
+      saveCallback();
+      removeModalFromBtn(e);
+    });
+  }
 }
 
 var modal = new Modal();

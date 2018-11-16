@@ -72,6 +72,43 @@ function downloadQuiz(localQuizObject) {
   window.saved = true;
 }
 
+function createNewQuiz() {
+  window.quizObject = {
+    name: "New Quiz",
+    author: "",
+    date: "",
+    questions: [
+      {
+        text: "New Question",
+        choices: [
+          {text: "", correct: false},
+          {text: "", correct: false},
+          {text: "", correct: false},
+          {text: "", correct: false}
+        ]
+      }
+    ]
+  };
+
+  window.saved = false;
+
+  create.fromJSON(window.quizObject);
+}
+
+function saveCreateNewQuiz() {
+  let localQuizObject = JSON.parse(JSON.stringify(window.quizObject));
+  localQuizObject.questions = [];
+
+  for (let question of window.quizObject.questions) {
+    if (!question.hasOwnProperty("marked")) {
+      localQuizObject.questions.push(question);
+    }
+  }
+
+  handleShiftedElements(localQuizObject);
+  createNewQuiz();
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
 
@@ -137,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     e.stopPropagation();
     e.preventDefault();
 
+    window.saved = true;
     fileupload.click();
   });
 
@@ -158,7 +196,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     e.preventDefault();
 
     if (!window.saved) {
-      // display modal
+      modal.confirmNew(
+        "Are you sure you want to create a new quiz? You have unsaved changes to quiz:",
+        window.quizObject.name,
+        createNewQuiz,
+        saveCreateNewQuiz
+      );
+    } else {
+      createNewQuiz();
     }
   });
 
