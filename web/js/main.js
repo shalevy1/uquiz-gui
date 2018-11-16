@@ -2,21 +2,36 @@ function enterClickHandler(el) {
   console.log(el);
 }
 
-function sortQuestions(localQuizObject) {
-  //   currindex = 0
-  let currIndex = 0;
-  //   for a in range(0, 6):
-  for (let i = 0; i < 6; i++) {}
-  //   mindex = currindex
-  //   for i in range(currindex + 1, 6):
-  //   if test[i] < test[mindex]:
-  //   mindex = i
-  //   tmp = test[mindex]
-  //   test[mindex] = test[currindex]
-  //   test[currindex] = tmp
-  //   print(test)
-  //   currindex += 1
-  //   sort(test)
+function sortQuestions(data) {
+  let sorted = [];
+
+  let mindex = 0;
+
+  for (let a = 0; a < data.length; a++) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i] !== undefined) {
+        mindex = i;
+        break;
+      }
+    }
+
+    for (let i = 0; i < data.length; i++) {
+      if (data[i] === undefined) {
+        continue;
+      }
+      if (data[i].sortBy < data[mindex].sortBy) {
+        mindex = i;
+      }
+    }
+
+    let copy = JSON.parse(JSON.stringify(data[mindex]));
+    delete copy.sortBy;
+
+    sorted.push(copy);
+    delete data[mindex];
+  }
+
+  return sorted;
 }
 
 function handleShiftedElements(localQuizObject) {
@@ -36,6 +51,23 @@ function handleShiftedElements(localQuizObject) {
 
     localQuizObject.questions[questionId].sortBy = i - 1;
   }
+
+  localQuizObject.questions = sortQuestions(localQuizObject.questions);
+  downloadQuiz(localQuizObject);
+}
+
+function downloadQuiz(localQuizObject) {
+  var a = window.document.createElement("a");
+
+  a.href = window.URL.createObjectURL(
+    new Blob([JSON.stringify(localQuizObject)], {type: "application/json"})
+  );
+
+  a.download = window.quizObject.name + ".json";
+
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 
   console.log(localQuizObject);
 }
@@ -95,8 +127,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   savebtn.addEventListener("click", function(e) {
-    var a = window.document.createElement("a");
-
     let localQuizObject = JSON.parse(JSON.stringify(window.quizObject));
     localQuizObject.questions = [];
 
@@ -107,16 +137,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     handleShiftedElements(localQuizObject);
-
-    a.href = window.URL.createObjectURL(
-      new Blob([JSON.stringify(localQuizObject)], {type: "application/json"})
-    );
-
-    a.download = window.quizObject.name + ".json";
-
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
   });
 
   newbtn.addEventListener("click", function(e) {
