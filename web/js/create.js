@@ -73,6 +73,10 @@ class Create {
       return;
     }
 
+    if (currentSection.classList.contains("titleSection")) {
+      return;
+    }
+
     let sideContainer = document.getElementById("sideContainer");
 
     let index = 0;

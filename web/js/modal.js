@@ -101,6 +101,64 @@ class Modal {
       removeModalFromBtn(e);
     });
   }
+
+  programModal() {
+    let template = `
+
+<div class="modalBackground">
+<div class="programModal">
+  <div class="programContent">
+    <div id="topControlContainer">
+      <button class="modalBtn">Scan</button>
+      <button class="modalBtn">Check</button>
+      <select id="deviceSelect" name="Choose device...">
+      </select>
+
+      <div class="hfill"></div>
+
+      <button id="exitButton">
+        <img src="/icon/close.svg" alt="Close Modal"/>
+      </button>
+    </div>
+
+    <div class="quizList">
+      <div class="quizListItem">
+        <div class="nameSection">
+          <div class="nameSectionTitle">Best Quiz</div>
+          <div class="nameSectionAuthor">argarak</div>
+          <div class="nameSectionDate">19/11/18</div>
+        </div>
+
+        <div class="quizListControls">
+          <button class="quizListDeleteBtn">
+            <img src="/icon/delete.svg" alt="Delete"/>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="bottomControlContainer">
+      <div id="spaceLeftContainer">
+        <div class="spaceLeft">3kB Left</div>
+        <progress value="22" max="100"></progress>
+      </div>
+
+      <button class="modalBtn programBtn">
+        Program
+      </button>
+    </div>
+  </div>
+</div>
+</div>`;
+
+    document.body.insertAdjacentHTML("beforeend", template);
+
+    let exitButton = document.getElementById("exitButton");
+
+    exitButton.addEventListener("click", function(e) {
+      removeModalFromBtn(e);
+    });
+  }
 }
 
 var modal = new Modal();

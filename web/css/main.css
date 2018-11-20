@@ -194,3 +194,18 @@ input[type="checkbox"]:focus {
 #undoQuestion {
   display: none;
 }
+#topControlContainer {
+  display: flex;
+  align-items: center;
+}
+#topControlContainer * {
+  margin: 0 5px;
+}
+#exitButton {
+  background: none;
+  border: none;
+  align-self: end;
+}
+.hfill {
+  width: 100%;
+}

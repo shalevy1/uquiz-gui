@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     e.stopPropagation();
     e.preventDefault();
 
-    alert("upload!");
+    modal.programModal();
   });
 
   let addQuestion = document.getElementById("addQuestion");
