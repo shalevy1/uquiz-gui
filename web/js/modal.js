@@ -1,9 +1,26 @@
+function findParentFromClass(el, className) {
+  if (el.parentNode === null || el.parentNode === undefined) {
+    return null;
+  }
+
+  if (
+    el.parentNode.classList === undefined ||
+    !el.parentNode.classList.contains(className)
+  ) {
+    return this.findParentFromClass(el.parentNode, className);
+  } else {
+    return el.parentNode;
+  }
+}
+
 function removeModalFromBtn(e) {
   e.stopPropagation();
   e.preventDefault();
 
+  let modalBackground = self.findParentFromClass(e.target, "modalBackground");
+
   e.target.removeEventListener("click", removeModalFromBtn);
-  e.target.parentNode.parentNode.outerHTML = "";
+  modalBackground.outerHTML = "";
 }
 
 class Modal {
