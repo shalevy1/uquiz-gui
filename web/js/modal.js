@@ -119,6 +119,20 @@ class Modal {
     });
   }
 
+  async updateProgramSelect() {
+    let devices = await eel.findSerialDevices()();
+    let select = document.getElementById("deviceSelect");
+
+    select.innerHTML = "";
+
+    for (let device of devices) {
+      let option = document.createElement("option");
+      option.value = device;
+      option.text = device;
+      select.appendChild(option);
+    }
+  }
+
   programModal() {
     let template = `
 
@@ -169,6 +183,8 @@ class Modal {
 </div>`;
 
     document.body.insertAdjacentHTML("beforeend", template);
+
+    this.updateProgramSelect();
 
     let exitButton = document.getElementById("exitButton");
 
