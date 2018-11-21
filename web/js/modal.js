@@ -140,8 +140,8 @@ class Modal {
 <div class="programModal">
   <div class="programContent">
     <div id="topControlContainer">
-      <button class="modalBtn">Scan</button>
-      <button class="modalBtn">Check</button>
+      <button id="scanBtn" class="modalBtn">Scan</button>
+      <button id="checkBtn" class="modalBtn">Check</button>
       <select id="deviceSelect" name="Choose device...">
       </select>
 
@@ -190,6 +190,14 @@ class Modal {
 
     exitButton.addEventListener("click", function(e) {
       removeModalFromBtn(e);
+    });
+
+    let checkBtn = document.getElementById("checkBtn");
+
+    checkBtn.addEventListener("click", function(e) {
+      let select = document.getElementById("deviceSelect");
+
+      eel.checkDevice(select.value);
     });
   }
 }
