@@ -1,3 +1,12 @@
+window.onbeforeunload = confirmExit;
+
+function confirmExit() {
+  if (!window.saved) {
+    return "You have unsaved changes to the quiz. Are you sure you want to close the program and lose your progress?";
+  }
+  return null;
+}
+
 function enterClickHandler(el) {
   console.log(el);
 }
