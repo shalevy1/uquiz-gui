@@ -61,15 +61,26 @@ function handleShiftedElements(localQuizObject) {
     localQuizObject.questions[questionId].sortBy = i - 1;
   }
 
-  localQuizObject.questions = sortQuestions(localQuizObject.questions);
-  downloadQuiz(localQuizObject);
+  let finalQuizObject = JSON.parse(JSON.stringify(localQuizObject));
+  finalQuizObject.questions = [];
+
+  for (let question of localQuizObject.questions) {
+    if (!question.hasOwnProperty("marked")) {
+      finalQuizObject.questions.push(question);
+    }
+  }
+
+  console.log(finalQuizObject);
+
+  finalQuizObject.questions = sortQuestions(finalQuizObject.questions);
+  downloadQuiz(finalQuizObject);
 }
 
-function downloadQuiz(localQuizObject) {
+function downloadQuiz(finalQuizObject) {
   var a = window.document.createElement("a");
 
   a.href = window.URL.createObjectURL(
-    new Blob([JSON.stringify(localQuizObject)], {type: "application/json"})
+    new Blob([JSON.stringify(finalQuizObject)], {type: "application/json"})
   );
 
   a.download = window.quizObject.name + ".json";
@@ -106,13 +117,6 @@ function createNewQuiz() {
 
 function saveCreateNewQuiz() {
   let localQuizObject = JSON.parse(JSON.stringify(window.quizObject));
-  localQuizObject.questions = [];
-
-  for (let question of window.quizObject.questions) {
-    if (!question.hasOwnProperty("marked")) {
-      localQuizObject.questions.push(question);
-    }
-  }
 
   handleShiftedElements(localQuizObject);
   createNewQuiz();
@@ -189,14 +193,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   savebtn.addEventListener("click", function(e) {
     let localQuizObject = JSON.parse(JSON.stringify(window.quizObject));
-    localQuizObject.questions = [];
-
-    for (let question of window.quizObject.questions) {
-      if (!question.hasOwnProperty("marked")) {
-        localQuizObject.questions.push(question);
-      }
-    }
-
     handleShiftedElements(localQuizObject);
   });
 
