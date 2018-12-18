@@ -11,6 +11,8 @@ function enterClickHandler(el) {
   console.log(el);
 }
 
+function addCurrentDate() {}
+
 function sortQuestions(data) {
   let sorted = [];
 
@@ -123,8 +125,6 @@ function saveCreateNewQuiz() {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  console.log("DOM fully loaded and parsed");
-
   window.quizFile = "";
 
   window.quizObject = {
@@ -192,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   savebtn.addEventListener("click", function(e) {
+    addCurrentDate();
     let localQuizObject = JSON.parse(JSON.stringify(window.quizObject));
     handleShiftedElements(localQuizObject);
   });
