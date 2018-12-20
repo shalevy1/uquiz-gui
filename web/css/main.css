@@ -209,3 +209,9 @@ input[type="checkbox"]:focus {
 .hfill {
   width: 100%;
 }
+.charLimit {
+  font-size: 12px;
+  text-align: right;
+  color: #222;
+  margin-bottom: -12px;
+}

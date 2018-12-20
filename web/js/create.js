@@ -283,13 +283,13 @@ class Create {
     <div class="editElement editQuestionText">
         <label for="uname">Quiz Name</label>
         <input type="text" id="qname" name="qname" required="" minlength="1" maxlength="28" placeholder="1 to 28 characters long">
-        <span class="validity"></span>
+        <span id="quizNameLimit" class="charLimit">0/28</span>
     </div>
 
     <div class="editElement editQuestionText">
         <label for="uname">Author</label>
         <input type="text" id="author" name="author" required="" minlength="1" maxlength="28" placeholder="1 to 28 characters long">
-        <span class="validity"></span>
+        <span id="authorLimit" class="charLimit">0/28</span>
     </div>
     `;
 
@@ -297,6 +297,9 @@ class Create {
 
     let quizName = document.getElementById("qname");
     quizName.value = window.quizObject.name;
+
+    let quizNameLimit = document.getElementById("quizNameLimit");
+    quizNameLimit.innerHTML = quizName.value.length + "/28";
 
     quizName.addEventListener("input", function(e) {
       window.saved = false;
@@ -311,14 +314,23 @@ class Create {
       }
 
       quizTitle.innerHTML = e.target.value;
+
+      let quizNameLimit = document.getElementById("quizNameLimit");
+      quizNameLimit.innerHTML = e.target.value.length + "/28";
     });
 
     let author = document.getElementById("author");
     author.value = window.quizObject.author;
 
+    let authorLimit = document.getElementById("authorLimit");
+    authorLimit.innerHTML = author.value.length + "/28";
+
     author.addEventListener("input", function(e) {
       window.saved = false;
       window.quizObject.author = e.target.value;
+
+      let authorLimit = document.getElementById("authorLimit");
+      authorLimit.innerHTML = e.target.value.length + "/28";
     });
   }
 
@@ -332,7 +344,7 @@ class Create {
     <div class="editElement editQuestionText">
         <label for="uname">Question Text</label>
         <input type="text" id="qtext" name="qtext" required="" minlength="1" maxlength="56" placeholder="1 to 56 characters long">
-        <span class="validity"></span>
+        <span id="questionTextLimit" class="charLimit">0/56</span>
     </div>
     `;
 
@@ -340,6 +352,9 @@ class Create {
 
     let questionText = document.getElementById("qtext");
     questionText.value = qu.text;
+
+    let questionTextLimit = document.getElementById("questionTextLimit");
+    questionTextLimit.innerHTML = questionText.value.length + "/56";
 
     questionText.addEventListener("input", function(e) {
       window.saved = false;
@@ -364,6 +379,9 @@ class Create {
       }
 
       window.quizObject.questions[questionId].text = e.target.value;
+
+      let questionTextLimit = document.getElementById("questionTextLimit");
+      questionTextLimit.innerHTML = e.target.value.length + "/56";
     });
 
     for (let i = 1; i < 5; i++) {
@@ -371,7 +389,7 @@ class Create {
       <div class="editElement editChoice1" style="">
           <label for="uname">Choice ${i}</label>
           <input type="text" id="choice${i}" name="choice${i}" required="" minlength="1" maxlength="28" placeholder="1 to 28 characters long">
-          <span class="validity"></span>
+          <span id="choice${i}Limit" class="charLimit"></span>
         
           <div class="choiceExtendedOptions">
               <div class="checkboxContainer">
@@ -396,6 +414,9 @@ class Create {
       }
 
       choice.value = qu.choices[i - 1].text;
+
+      let choiceLimit = document.getElementById("choice" + i + "Limit");
+      choiceLimit.innerHTML = choice.value.length + "/28";
 
       let correct = document.getElementById("correct" + i);
 
@@ -458,6 +479,11 @@ class Create {
 
         window.quizObject.questions[questionId].choices[choiceId].text =
           e.target.value;
+
+        let choiceLimit = document.getElementById(
+          "choice" + (choiceId + 1) + "Limit"
+        );
+        choiceLimit.innerHTML = e.target.value.length + "/28";
       });
     }
   }
