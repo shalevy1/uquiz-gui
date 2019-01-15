@@ -215,3 +215,8 @@ input[type="checkbox"]:focus {
   color: #222;
   margin-bottom: -12px;
 }
+#helpContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}

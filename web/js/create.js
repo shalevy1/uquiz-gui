@@ -1,34 +1,59 @@
+/*
+  Contains most functions for making changes to the quizObject and HTML of the
+  editor
+ */
 class Create {
   constructor() {}
 
-  /* Makes use of recursion */
+  /*
+    [Makes use of recursion]
+    This function takes in a DOM element and a class name of the parent element
+    to be found. It calls itself by passing in the DOM element's parentNode
+    and checking whether the element contains the given className. If it does
+    not, the function calls itself again until the element is found or if
+    the parent element does not exist (reaches top-level <html> tag).
+   */
   findParentFromClass(el, className) {
+    /* Return null if no parent element could be found */
     if (el.parentNode === null || el.parentNode === undefined) {
       return null;
     }
 
+    /* If the parent node exists but does not contain the className (or has
+       no HTML classes at all), make the function call itself with it's parent
+       node as the reference. */
     if (
       el.parentNode.classList === undefined ||
       !el.parentNode.classList.contains(className)
     ) {
       return this.findParentFromClass(el.parentNode, className);
+      /* If the className inside of the classList could be found, return
+         the element */
     } else {
       return el.parentNode;
     }
   }
 
-  /* Clears the side container of all elements */
+  /*
+    Clears the sideContainer of all elements
+   */
   clearSide() {
     let sideContainer = document.getElementById("sideContainer");
 
+    /* Handle case if sideContainer could not be found */
     if (sideContainer === null) {
       console.error("Cannot clear side as #sideContainer cannot be located!");
       return;
     }
 
+    /* Set the inner HTML to empty */
     sideContainer.innerHTML = "";
   }
 
+  /*
+    Gets the currently selected section and swaps it with the previous, moving
+    it up by 1
+   */
   shiftUp() {
     let currentSection = document.querySelector(".currentSection");
 
@@ -55,6 +80,7 @@ class Create {
       return;
     }
 
+    /* Make sure it doesn't swap places with the titleSection */
     if (index <= 1) {
       return;
     }
@@ -65,6 +91,10 @@ class Create {
     );
   }
 
+  /*
+    Gets the currently selected section and swaps it with the next, moving
+    it down by 1
+  */
   shiftDown() {
     let currentSection = document.querySelector(".currentSection");
 
@@ -372,6 +402,8 @@ class Create {
         return;
       }
 
+      /* If the input is not empty, set the currentSection text to the trucated
+         input value, else set it to "New Question" */
       if (e.target.value) {
         currentQuestionName.innerHTML = self.truncate(e.target.value);
       } else {
@@ -488,6 +520,10 @@ class Create {
     }
   }
 
+  /*
+    Takes in a string and appends an ellipse Unicode character if the length is
+    greater than 46, allowing the text to fit inside of a .quizSection
+   */
   truncate(text) {
     if (text.length <= 46) {
       return text;
@@ -495,6 +531,11 @@ class Create {
     return text.substring(0, 45) + "…";
   }
 
+  /*
+    Takes in a JavaScript object variable (global window.quizObject) and
+    generates the appropriate HTML and JavaScript events for the sideContainer
+    and all child sections
+   */
   fromJSON(json) {
     this.clearSide();
 
@@ -521,6 +562,7 @@ class Create {
 
     let sideContainer = document.getElementById("sideContainer");
 
+    /* Handle case if sideContainer is not found */
     if (sideContainer === null) {
       modal.error(
         "Could not find ID element sideContainer. Please restart the program and try again."
@@ -529,10 +571,12 @@ class Create {
       return;
     }
 
+    /* Create titleSection HTML element */
     sideContainer.insertAdjacentHTML("beforeend", titleTemplate);
 
     let titleSection = document.querySelector(".titleSection");
 
+    /* Handle case if titleSection is not found */
     if (titleSection === null) {
       modal.error(
         "Could not find class element titleSection. Please restart the program and try again."
@@ -541,20 +585,30 @@ class Create {
       return;
     }
 
+    /* `self` is used to reference the Create class from inside of the event
+       function, as the keyword `this` would refer to the function and not
+       the class */
     var self = this;
 
+    /* When titleSection clicked... */
     titleSection.addEventListener("click", function(e) {
       self.editQuiz();
 
+      /* Check if user clicked on .quizSection element, or a child element of
+        .quizSection */
       if (e.target.classList.contains("quizSection")) {
+        /* Add currentSection class to current element and remove class
+           existing element */
         document
           .querySelector(".currentSection")
           .classList.remove("currentSection");
 
         e.target.className += " currentSection";
       } else {
+        /* Find parent class matching .quizSection */
         let quizSection = self.findParentFromClass(e.target, "quizSection");
 
+        /* Handle case when parent element is not found */
         if (quizSection === null) {
           modal.error(
             "Failed to update edit section. Please restart the program and try again."
@@ -562,6 +616,8 @@ class Create {
           return;
         }
 
+        /* Add currentSection class to current element and remove class
+           existing element */
         document
           .querySelector(".currentSection")
           .classList.remove("currentSection");
@@ -570,10 +626,13 @@ class Create {
       }
     });
 
+    /* Iterate over each question in provided JSON data */
     for (let question in json.questions) {
       let questionNo = parseInt(question) + 1;
       let id = "qu" + question;
 
+      /* Create inline template using truncated version of the question text if
+         applicable */
       let questionTemplate = `<div class="quizSection questionSection" id="${id}">
 
                               <div class="indicatorContainer">
@@ -588,10 +647,12 @@ class Create {
 
                               </div>`;
 
+      /* Append template to sideContainer */
       sideContainer.insertAdjacentHTML("beforeend", questionTemplate);
 
       let questionElement = document.getElementById(id);
 
+      /* Handle case if question element is not found */
       if (questionElement === null) {
         modal.error(
           "Could not find current questionElement ID. Please restart the program and try again."
@@ -600,12 +661,16 @@ class Create {
         return;
       }
 
+      /* When question element is clicked... */
       questionElement.addEventListener("click", function(e) {
         let quizSection = e.target;
 
+        /* Handle case if user clicks on child elemnt of .quizSection */
         if (!e.target.classList.contains("quizSection")) {
+          /* Find parent .quizSection */
           quizSection = self.findParentFromClass(e.target, "quizSection");
 
+          /* Handle case if quizSection is not found */
           if (quizSection === null) {
             modal.error(
               "Failed to update edit section. Please restart the program and try again."
@@ -614,10 +679,12 @@ class Create {
           }
         }
 
+        /* Get questionIndex from ID */
         let questionIndex = parseInt(quizSection.id.match(/\d+/)[0]);
 
         var currentSection = document.querySelector(".currentSection");
 
+        /* Handle case if currentSection is not found */
         if (currentSection === null) {
           modal.error(
             "Could not find class element currentSection. Please restart the program and try again."
@@ -626,19 +693,24 @@ class Create {
           return;
         }
 
+        /* Add currentSection to clicked element and remove it from the
+           previous */
         currentSection.classList.remove("currentSection");
 
         quizSection.className += " currentSection";
 
+        /* Call editQuestion, passing the current question data and index */
         self.editQuestion(
           window.quizObject.questions[questionIndex],
           questionIndex
         );
       });
 
+      /* After loading quiz, set the editor to edit the quiz metadata */
       self.editQuiz();
     }
   }
 }
 
+/* Create global create object from create class */
 var create = new Create();
