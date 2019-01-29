@@ -190,7 +190,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var openbtn = document.querySelector(".control-open");
   var savebtn = document.querySelector(".control-save");
   var newbtn = document.querySelector(".control-new");
-  var uploadbtn = document.querySelector(".control-upload");
 
   openbtn.addEventListener("click", function(e) {
     e.stopPropagation();
@@ -219,13 +218,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     } else {
       createNewQuiz();
     }
-  });
-
-  uploadbtn.addEventListener("click", function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    modal.programModal();
   });
 
   let addQuestion = document.getElementById("addQuestion");
