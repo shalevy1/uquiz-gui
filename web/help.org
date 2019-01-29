@@ -1,0 +1,38 @@
+
+#+TITLE: Quiz Designer Help
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org-style.css" />
+#+OPTIONS: num:nil
+
+* Getting Started
+** Interface 
+
+When you first load up the quiz designer application, an empty quiz will already have loaded, allowing you to edit its parameters. You will first see a screen like this: 
+
+#+CAPTION: The first window you see after running the quiz designer application
+[[./help/firstscreen.png]]
+
+In this screen you can modify two items: the quiz name and the author name. Enter the name of the quiz you would like to make inside of the Quiz Name field and enter your name or pseudonym in the author field. You may notice the quiz name change at the side after changing it: 
+
+#+CAPTION: Side element changes to "Cat Quiz" after the same quiz name is entered in the field
+[[./help/titlechange.png]]
+
+You may return to editing the quiz name and author at any time by clicking on the top side element and shown in the screenshot.
+
+** Text Limits 
+
+All text inputs, including the quiz name and author, have a limit to how many characters you can input into each field. This is shown by a number in the bottom right of a field, showing the number of input characters versus the total allowed number of characters. The application will prevent you from typing over this limit.
+
+#+CAPTION: Text limit in the quiz name field where 28 is the maximum allowed number of characters
+[[./help/limit.png]]
+
+** Editing Questions
+
+To edit your first question, click on the "New Question" section at the side of the window.
+
+#+CAPTION: New Question section
+[[./help/newquestion.png]]
+
+You will see the window change to display 5 input fields: the name of the question and the 4 choices the player can make. You can also choose whether the choice is correct or not. 
+
+#+CAPTION: Editing question window
