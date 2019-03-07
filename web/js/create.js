@@ -425,7 +425,7 @@ class Create {
         
           <div class="choiceExtendedOptions">
               <div class="checkboxContainer">
-                  <label for="correct1">Correct</label>
+                  <label for="correct${i}">Correct</label>
               	  <input type="checkbox" name="correct${i}" id="correct${i}" value="Correct">
               </div>
           </div>
@@ -556,7 +556,6 @@ class Create {
                          <div class="quizTitle">
                          ${title}
                          </div>
-
 
                          </div>`;
 

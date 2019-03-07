@@ -164,15 +164,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       return;
     }
 
-    if (!window.saved) {
-      modal.confirmNew(
-        "Are you sure you want to create a new quiz? You have unsaved changes to quiz:",
-        window.quizObject.name,
-        createNewQuiz,
-        saveCreateNewQuiz
-      );
-    }
-
     var reader = new FileReader();
 
     reader.onload = function() {
